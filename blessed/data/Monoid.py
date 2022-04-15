@@ -1,5 +1,5 @@
-from core import *
-from data.Semigroup import Semigroup
+from ..core import *
+from ..data.Semigroup import Semigroup
 
 class Monoid(Generic[A], Semigroup[A], metaclass=ABCMeta):
     '''

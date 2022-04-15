@@ -6,12 +6,13 @@ License: MIT
 '''
 
 import builtins
-from core import *
+from blessed.core import *
 
-from data.Monoid import *
-from data.Maybe import *
-from data.Either import *
-from data.Functor import *
+from blessed.data.Monoid import *
+from blessed.data.Maybe import *
+from blessed.data.Either import *
+from blessed.data.Functor import *
+from blessed.data.Foldable import Foldable, FoldableList
 
 '''
 Polyfills for enabling Blessed to modify Python builtin types
@@ -28,24 +29,21 @@ class _StrPolyfill(str, MonoidStr):
 @MonoidList.register
 @FunctorList.register
 # Since List is both a Monoid and Functor, it has multiple "subclasses"
-class _ListPolyfill(List, MonoidList, FunctorList):
+class _ListPolyfill(List, MonoidList, FunctorList, FoldableList):
     pass
 
 def polyfill():
     '''
-    Register the polyfills by overriding the builtins objects,
-    and then registering virtual subclasses for all the Monoid and Functor instances.
+    Register the polyfills by overriding the builtin objects
     '''
 
     builtins.int = _IntPolyfill
     builtins.str = _StrPolyfill
     builtins.list = _ListPolyfill
 
-    Monoid.register(_IntPolyfill)
-    Monoid.register(_StrPolyfill)
-    Monoid.register(_ListPolyfill)
-    Functor.register(_ListPolyfill)
-    Functor.register(Maybe)
-    Functor.register(Either)
-
-    Applicative.register(Maybe)
+    builtins.list.head = lambda x: x[0]
+    builtins.list.tail = lambda x: x[1:]
+    builtins.list.init = lambda x: x[:-1]
+    builtins.list.last = builtins.list.tail
+    builtins.list.fst = builtins.list.head
+    builtins.list.snd = builtins.list.tail

@@ -1,5 +1,5 @@
-from core import *
-from data.Functor import *
+from ..core import *
+from ..data.Functor import *
 
 class Applicative(Functor[A], metaclass=ABCMeta):
     '''

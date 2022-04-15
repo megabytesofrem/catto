@@ -7,39 +7,26 @@ call, and had the great idea to make this a library. Please don't *actually* use
 
 ## Example
 ```py
-from data.Monoid import *
-from data.Maybe import *
-from data.Either import *
-from data.Functor import *
+from blessed.polyfills import polyfill
+from blessed.control.Applicative import Applicative
+from blessed.data.Foldable import Foldable
+from blessed.data.Maybe import Just, Maybe, Nothing
 
-from data.Applicative import *
+polyfill()
 
-import blessed
+xs = list.fold([[1,2,3], [4,5,6]])
+print(list.tail(xs) + [list.head(xs)])
 
-# Polyfill/monkey patch Pythons type-system, this allows this
-# whole library to be possible
-blessed.polyfill()
-
-# mconcat :p
-nums = [1,2,3]
-more_nums = list.mconcat([nums, [4,5,6]]) # [1,2,3,4,5,6]
-
-# safely deal with error values
-def maybe_fail(a, b) -> Maybe[int]:
-    if b == 0:
-        return Nothing()
-    else:
-        return Just(a / b)
-
-Maybe.fmap(lambda x: print(f'Result: {x}'), maybe_fail(4,2))
-
-five = Applicative.pure(5)
+# applicative!
+ys = Maybe.ap(lambda x: Maybe.fmap(lambda y: x.value + y, Just(1)), Just(2))
+print(ys.value.value)
 ```
 
 ### Whats implemented so far?
 - Data.Semigroup
 - Data.Monoid
 - Data.Functor
+- Data.Foldable
 - Data.Maybe
 - Data.Either
-- Control.Applicative (Maybe)
+- Control.Applicative (Maybe, Either)

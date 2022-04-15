@@ -1,4 +1,4 @@
-from core import *
+from ..core import *
 
 class Semigroup(Generic[A], metaclass=ABCMeta):
     '''
