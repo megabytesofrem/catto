@@ -7,7 +7,7 @@ License: MIT
 
 import functools
 from abc import ABCMeta, abstractmethod
-from typing import List, Generic, TypeVar
+from typing import List, Generic, TypeVar, Callable
 
 # Define some type aliases
 A = TypeVar('A')
