@@ -7,7 +7,7 @@ License: MIT
 
 import functools
 from abc import ABCMeta, abstractmethod
-from typing import List, Generic, TypeVar, Callable
+from typing import List, Generic, TypeVar, Tuple, Callable
 
 # Define some type aliases
 A = TypeVar('A')
@@ -17,6 +17,7 @@ D = TypeVar('D')
 E = TypeVar('E')
 F = TypeVar('F')
 M = TypeVar('M')
+S = TypeVar('S')
 
 def compose(*fns):
     '''

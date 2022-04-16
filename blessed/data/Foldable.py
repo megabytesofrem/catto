@@ -13,5 +13,5 @@ class Foldable(Monoid[A]):
 
 @Foldable.register
 class FoldableList(Monoid[List[A]]):
-    def fold(t: A) -> Monoid[A]:  
+    def fold(t: List[A]) -> Foldable[A]:  
         return functools.reduce(MonoidList.mappend, t, MonoidList.mempty())

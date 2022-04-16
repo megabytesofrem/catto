@@ -26,7 +26,7 @@ class Monoid(Generic[A], Semigroup[A], metaclass=ABCMeta):
         pass
     
     @abstractmethod
-    def mconcat(xs) -> A:
+    def mconcat(a) -> A:
         pass
 
 @Monoid.register
@@ -41,8 +41,8 @@ class MonoidInt(Monoid[int]):
     def mappend(a, b) -> int:
         return MonoidInt.sconcat(a,b)
 
-    def mconcat(xs) -> A:
-        return functools.reduce(MonoidInt.mappend, xs, MonoidInt.mempty())
+    def mconcat(a: Monoid[A]) -> A:
+        return functools.reduce(MonoidInt.mappend, a, MonoidInt.mempty())
 
 @Monoid.register
 class MonoidStr(Monoid[str]):
@@ -56,8 +56,8 @@ class MonoidStr(Monoid[str]):
     def mappend(a, b) -> str:
         return MonoidStr.sconcat(a,b)
 
-    def mconcat(xs) -> A:
-        return functools.reduce(MonoidStr.mappend, xs, MonoidStr.mempty())
+    def mconcat(a: Monoid[A]) -> A:
+        return functools.reduce(MonoidStr.mappend, a, MonoidStr.mempty())
 
 @Monoid.register
 class MonoidList(Monoid[List[A]]):
@@ -71,5 +71,5 @@ class MonoidList(Monoid[List[A]]):
     def mappend(a, b) -> List[A]:
         return MonoidList.sconcat(a,b)
 
-    def mconcat(xs) -> List[A]:
-        return functools.reduce(MonoidList.mappend, xs, MonoidList.mempty())
+    def mconcat(a: Monoid[A]) -> A:
+        return functools.reduce(MonoidList.mappend, a, MonoidList.mempty())

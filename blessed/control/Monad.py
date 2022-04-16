@@ -11,10 +11,11 @@ class Monad(Applicative[A], metaclass=ABCMeta):
         self.value = value
 
     @abstractmethod
-    # (>>=) :: m a -> (a -> m b) -> m b
     def bind(a: A, f: Callable[[A], B]) -> B:
         '''
         Sequentially compose two actions, passing any value produced by the first
         as an argument to the second.
+
+        (>>=) :: m a -> (a -> m b) -> m b
         '''
         pass

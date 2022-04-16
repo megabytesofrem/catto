@@ -1,5 +1,6 @@
 from ..core import *
 
+from ..data.Functor import Functor
 from ..control.Applicative import Applicative
 from ..control.Applicative import Applicative
 
@@ -17,21 +18,21 @@ class Either(Applicative[Generic[A,B]]):
         self.left = left
         self.right = right
 
-    def fmap(f, m) -> A:
+    def fmap(f, m) -> Functor[A]:
         if m.right != None:
             return Right(f(m.right))
         else:
             return Left(m.left)
 
     # Applicative
-    def pure(a) -> A:
+    def pure(a) -> Applicative[A]:
         return Right(a)
     
-    def ap(f, x) -> A:
+    def ap(f, a: Functor[A]) -> Applicative[A]:
         if f == Left:
             return Left(f)
         else:
-            return Either.fmap(f, x)
+            return Either.fmap(f, a)
 
 def Left(a) -> Either[A,None]:
     return Either(a,None)

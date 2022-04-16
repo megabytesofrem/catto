@@ -19,22 +19,20 @@ class Maybe(Monad[Generic[A]]):
             return Just(f(m.value))
 
     # Applicative
-    def pure(a) -> Monad[A]:
+    def pure(a) -> Applicative[A]:
         return Just(a)
     
-    def ap(f, x) -> Applicative[A]:
-        if f == Nothing or x == Nothing:
+    def ap(f, a: Functor[A]) -> Applicative[A]:
+        if f == Nothing or a == Nothing:
             return Nothing
         else:
-            return Just(f(x))
+            return Just(f(a))
 
     def bind(a: Monad[A], f: Callable[[A], Monad[B]]) -> Monad[B]:
         # Nothing >>= f = Nothing
         # (Just x) >>= f = f x
-        if a == Nothing:
-            return Nothing()
-        elif a == Just:
-            return f(a)
+        if a.value != None:
+            return f(a.unlift())
         else:
             return Nothing()
 
