@@ -1,10 +1,9 @@
-from tokenize import maybe
-from blessed.core import List
+from catto.core import List
 
-from blessed.data.Maybe import Maybe, Just, Nothing
-from blessed.polyfills import polyfill
-from blessed.control.Applicative import Applicative
-from blessed.control.MonadIdentity import Identity
+from catto.data.Maybe import Maybe, Just, Nothing
+from catto.polyfills import polyfill
+from catto.control.Applicative import Applicative
+from catto.control.MonadIdentity import Identity
 
 polyfill()
 

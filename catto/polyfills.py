@@ -1,21 +1,21 @@
 '''
-Blessed library that merges the functional world of Haskell and Python together
+Catto extends Python with concepts from category theory, such as functors, applicatives and monads
 
 Author: megabytesofrem
 License: MIT
 '''
 
 import builtins
-from blessed.core import *
+from catto.core import *
 
-from blessed.data.Monoid import *
-from blessed.data.Maybe import *
-from blessed.data.Either import *
-from blessed.data.Functor import *
-from blessed.data.Foldable import Foldable, FoldableList
+from catto.data.Monoid import *
+from catto.data.Maybe import *
+from catto.data.Either import *
+from catto.data.Functor import *
+from catto.data.Foldable import Foldable, FoldableList
 
 '''
-Polyfills for enabling Blessed to modify Python builtin types
+Polyfills for enabling Catto to modify Python builtin types
 '''
 
 @MonoidInt.register
